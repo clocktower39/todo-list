@@ -6,15 +6,21 @@ import {
     import { todos } from './states'
 
 export let reducer = (state = todos, action) => {
+    let newTodos = [...state];
     switch( action.type) {
         case ADD_TODO:
-            break;
+            newTodos.push(action.payload);
+            return newTodos;
         case DELETE_TODO:
-            let newTodos = [...state];
             newTodos = newTodos.filter(todo => todo.id !== action.payload)
             return newTodos;
         case UPDATE_TODO:
-            break;
+            newTodos = newTodos.forEach(todo => {
+                if(todo.id === action.payload.id){
+                    todo.name = action.payload.name
+                }
+            })
+            return newTodos;
         default:
             break;
     }
