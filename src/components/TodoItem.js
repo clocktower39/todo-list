@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteTodo, updateTodo } from '../redux/actions';
 import {
+    Button,
     TableRow,
     TableCell,
     makeStyles
 } from '@material-ui/core';
+import { Delete, Edit } from '@material-ui/icons';
 
 let useStyles = makeStyles({
     root: {
@@ -20,11 +22,11 @@ function TodoItem({ todo }) {
     let classes = useStyles();
 
     return (
-        <TableRow>
+        <TableRow className={classes.root}>
                 <TableCell>{todo.id}</TableCell>
                 {editable ? <TableCell><input type="text" value={name} onChange={(e)=>setName(e.target.value)}/></TableCell> : <TableCell>{todo.name}</TableCell>}
                 <TableCell>
-                    <button
+                    <Button
                         onClick={()=>{
                             if(editable){
                                 dispatch(updateTodo({
@@ -34,10 +36,10 @@ function TodoItem({ todo }) {
                             }
                             setEditable(!editable)
                         }}
-                    >Edit</button>
+                    ><Edit /></Button>
                     </TableCell>
                 <TableCell>
-                    <button onClick={()=>dispatch(deleteTodo(todo.id))}>Delete</button>
+                    <Button onClick={()=>dispatch(deleteTodo(todo.id))}><Delete /></Button>
                 </TableCell>
         </TableRow>
     )
